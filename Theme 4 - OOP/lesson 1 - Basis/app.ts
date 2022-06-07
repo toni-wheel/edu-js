@@ -44,18 +44,67 @@ console.log(vasyaFullName, vasyaIsAdult);
 
 // Инкапсуляция
 
-class Box {
-  private _width;
-  private _length;
-  private _height;
+class Person {
+  private _firstName;
+  private _lastName;
+  private _age;
+  private _ID: number;
+  private _hobbies: Array<string>;
 
-  constructor(width: number, length: number, height: number) {
-    this._width = width;
-    this._length = length;
-    this._height = height;
+  constructor(firstName: string, lastName: string, age: number) {
+    this._firstName = firstName;
+    this._lastName = lastName;
+    if (age >= 0) {
+      this._age = age;
+    } else {
+      this._age = 0;
+    }
+    this._ID = Math.floor(Math.random() * 100);
+    this._hobbies = [];
   }
 
-  get volume() {
-    return this._width * this._length * this._height;
+  public get fullName() {
+    return this._firstName + " " + this._lastName;
+  }
+
+  public get age() {
+    return this._age;
+  }
+
+  public set age(count: number) {
+    this._age += count;
+  }
+
+  public get ID() {
+    return this._ID;
+  }
+
+  public set addHobbie(hobbie: string) {
+    this._hobbies.push(hobbie);
+  }
+
+  public get hobbies() {
+    let userHobbie: string;
+    if (this._hobbies.length === 0) {
+      userHobbie = "Нет увлечений";
+    } else {
+      userHobbie = "Увлечения " + this._firstName + ": ";
+      this._hobbies.forEach((hobbie) => {
+        userHobbie += hobbie + " ";
+      });
+    }
+    return userHobbie;
   }
 }
+
+const user = new Person("Андрей", "Мышинский", 50);
+
+user.fullName;
+user.ID;
+user.age;
+user.age = 1;
+user.age;
+user.hobbies;
+user.addHobbie = "рыбалка";
+user.addHobbie = "дача";
+user.hobbies;
